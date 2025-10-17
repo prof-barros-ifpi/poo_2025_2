@@ -27,3 +27,11 @@ class Jogador:
     def descansar(self):
         """Recupera parte da energia"""
         self.energia = min(self.energia + 10, 100)
+
+    #Resposta dos exercícios práticos em sala Versão 0
+
+    def atacar(self, outro_jogador):
+        print("Kamehamehaaaaaa........")
+        outro_jogador.energia = outro_jogador.energia - 10
+        
+
