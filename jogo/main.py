@@ -1,5 +1,6 @@
 import pygame
 from Jogador import Jogador
+from chao import Chao
 
 # Inicialização
 pygame.init()
@@ -8,31 +9,30 @@ pygame.init()
 LARGURA = 800
 ALTURA = 400
 tela = pygame.display.set_mode((LARGURA, ALTURA))
-pygame.display.set_caption("Versão 0.1 - Movimento Básico")
+pygame.display.set_caption("Versão 0.2 - Gravidade e Chão")
 
 # Cores
-BRANCO = (255, 255, 255)
+AZUL_CEU = (135, 206, 250)
+relogio = pygame.time.Clock()
 
-# Criar jogador
-jogador = Jogador(100, 300)
+# Criar objetos
+jogador = Jogador(100, 250)
+chao = Chao(ALTURA - 50)
 
 # Loop principal
 rodando = True
-relogio = pygame.time.Clock()
-
 while rodando:
-    relogio.tick(30)  # FPS
+    relogio.tick(30)
 
     for evento in pygame.event.get():
         if evento.type == pygame.QUIT:
             rodando = False
 
-    # Ler teclas pressionadas
     teclas = pygame.key.get_pressed()
-    jogador.mover(teclas)
+    jogador.mover(teclas, chao.y)
 
-    # Atualizar tela
-    tela.fill(BRANCO)
+    tela.fill(AZUL_CEU)
+    chao.desenhar(tela, LARGURA)
     jogador.desenhar(tela)
     pygame.display.update()
 
