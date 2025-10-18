@@ -1,26 +1,39 @@
-# main.py
+import pygame
 from Jogador import Jogador
 
-# Criação do objeto (instancia da classe)
-j1 = Jogador("Anderson")
+# Inicialização
+pygame.init()
 
-print("=== Versão 0 do Jogo ===")
-print(j1.status())
+# Configuração da tela
+LARGURA = 800
+ALTURA = 400
+tela = pygame.display.set_mode((LARGURA, ALTURA))
+pygame.display.set_caption("Versão 0.1 - Movimento Básico")
 
-# Simulação simples
-j1.mover(5)
-print(j1.status())
+# Cores
+BRANCO = (255, 255, 255)
 
-j1.descansar()
-print(j1.status())
+# Criar jogador
+jogador = Jogador(100, 300)
 
-j2 = Jogador("Goku")
-j3 = Jogador("Vegeta")
+# Loop principal
+rodando = True
+relogio = pygame.time.Clock()
 
-j2.mover(10)
-j3.mover(30)
+while rodando:
+    relogio.tick(30)  # FPS
 
-print(j2.status())
-print(j3.status())
+    for evento in pygame.event.get():
+        if evento.type == pygame.QUIT:
+            rodando = False
 
-j2.atacar(j3)
+    # Ler teclas pressionadas
+    teclas = pygame.key.get_pressed()
+    jogador.mover(teclas)
+
+    # Atualizar tela
+    tela.fill(BRANCO)
+    jogador.desenhar(tela)
+    pygame.display.update()
+
+pygame.quit()
